@@ -112,9 +112,11 @@ static TiStorekitModule *sharedInstance;
 
 -(void)setBundleVersion:(id)value
 {
+    /*
     if (![TiUtils isIOS7OrGreater]) {
         [TiStorekitModule logAddedIniOS7Warning:@"bundleVersion"];
     }
+     */
     
     RELEASE_AND_REPLACE(bundleVersion, [TiUtils stringValue:value]);
 }
@@ -125,9 +127,9 @@ static TiStorekitModule *sharedInstance;
 
 -(void)setBundleIdentifier:(id)value
 {
-    if (![TiUtils isIOS7OrGreater]) {
-        [TiStorekitModule logAddedIniOS7Warning:@"bundleIdentifier"];
-    }
+    //if (![TiUtils isIOS7OrGreater]) {
+    //   [TiStorekitModule logAddedIniOS7Warning:@"bundleIdentifier"];
+    //}
     
     RELEASE_AND_REPLACE(bundleIdentifier, [TiUtils stringValue:value]);
 }
@@ -138,10 +140,12 @@ static TiStorekitModule *sharedInstance;
 
 -(id)receiptExists
 {
+    /*
     if (![TiUtils isIOS7OrGreater]) {
         [TiStorekitModule logAddedIniOS7Warning:@"receiptExists"];
         return NUMBOOL(NO);
     }
+     */
     
     NSURL *receiptURL = [[NSBundle mainBundle] performSelector:@selector(appStoreReceiptURL)];
     return NUMBOOL([[NSFileManager defaultManager] fileExistsAtPath:receiptURL.path]);
@@ -149,10 +153,12 @@ static TiStorekitModule *sharedInstance;
 
 -(id)validateReceipt:(id)args
 {
+    /*
     if (![TiUtils isIOS7OrGreater]) {
         [TiStorekitModule logAddedIniOS7Warning:@"validateReceipt"];
         return NUMBOOL(NO);
     }
+     */
     
     // If the receipt is missing, verifyReceiptAtPath will always return false.
     // Adding a check here to assist with troubleshooting.
@@ -171,10 +177,12 @@ static TiStorekitModule *sharedInstance;
 
 -(TiBlob*)receipt
 {
+    /*
     if (![TiUtils isIOS7OrGreater]) {
         [TiStorekitModule logAddedIniOS7Warning:@"receipt"];
         return nil;
     }
+     */
     
     NSURL *receiptURL = [self receiptURL];
     return [[[TiBlob alloc] initWithFile:receiptURL.path] autorelease];
@@ -182,10 +190,12 @@ static TiStorekitModule *sharedInstance;
 
 -(id)receiptProperties
 {
+    /*
     if (![TiUtils isIOS7OrGreater]) {
         [TiStorekitModule logAddedIniOS7Warning:@"receiptProperties"];
         return nil;
     }
+     */
     
     NSURL *receiptURL = [self receiptURL];
     NSMutableDictionary *receiptDict = [NSMutableDictionary dictionaryWithDictionary:dictionaryWithAppStoreReceipt(receiptURL.path)];
@@ -203,10 +213,12 @@ static TiStorekitModule *sharedInstance;
     //    SKReceiptPropertyIsRevoked        = revoked
     //    SKReceiptPropertyIsVolumePurchase = vpp
     
+    /*
     if (![TiUtils isIOS7OrGreater]) {
         [TiStorekitModule logAddedIniOS7Warning:@"refreshReceipt"];
         return nil;
     }
+     */
     
     enum Args {
         kArgProperties = 0,
